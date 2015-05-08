@@ -1,8 +1,10 @@
 <?php
    require_once __DIR__ . '/vendor/autoload.php';
+   require_once __DIR__ . '/config.inc.php';
+   
    use PhpAmqpLib\Connection\AMQPConnection;
 
-   $connection = new AMQPConnection('localhost', 5672, 'root', 'foobar');
+   $connection = new AMQPConnection(RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_USER, RABBITMQ_PASS);
    $channel = $connection->channel();
    $channel->queue_declare('hello', false, false, false, false);
 
