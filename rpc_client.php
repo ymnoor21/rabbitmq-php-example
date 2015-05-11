@@ -30,7 +30,7 @@
          $this->response = null;
          $this->corr_id = uniqid();
 
-         $msg = new AMQPMessage((string) $n, array('correlation_id' => $this->corr_id, 'reply_to' => $this->callback_queue));
+         $msg = new AMQPMessage((string) $n, array('correlation_id' => $this->corr_id, 'reply_to' => $this->callback_queue, 'content_type' => 'application/json'));
          $this->channel->basic_publish($msg, '', 'rpc_queue');
          
          while(!$this->response) {
@@ -41,5 +41,5 @@
    };
 
    $fibonacci_rpc = new FibonacciRpcClient();
-   $response = $fibonacci_rpc->call(30);
+   $response = $fibonacci_rpc->call(32);
    echo " [.] Got ", $response, "\n";
